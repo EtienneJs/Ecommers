@@ -1,0 +1,14 @@
+.container-Show{
+    height: 100vh;
+
+}
+
+.container-ShowBlogs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    
+
+}

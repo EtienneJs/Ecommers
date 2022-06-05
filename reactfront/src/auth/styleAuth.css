@@ -1,0 +1,19 @@
+.container-class{
+    height: 100vh;
+    width: 100vw;
+}
+
+ form {
+    padding: 4rem 0.8rem;
+    width: 25%;
+    border-radius: 30px;
+    border: 1px solid whitesmoke;
+    
+}
+
+.input-class{
+    width: 80%;
+    border-radius: 5px;
+    outline: none;
+}
+
