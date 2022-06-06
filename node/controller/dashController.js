@@ -1,23 +1,309 @@
-import { clientModal, orderModel, productDashModel, userModelModal} from "../models/dashModal.js"
+import { categoriasModal, clientModal, facturasModal,productDashModel, userModelModal, ventasModal} from "../models/dashModal.js"
 import bcryptjs from 'bcryptjs'
 
+// *Ventas*
+
+//Ingresar categoria
+export const registerVentas = async(req, res)=>{
+
+    try {
+        const {id_facturas,id_productos,CU, Precio} ={
+            id_facturas :req.body.id_facturas,
+            id_productos :req.body.id_productos,
+            CU:req.body.CU,
+            Precio:req.body.Precio
+           } 
+            await productDashModel.create(
+                {id_facturas, id_productos,CU,Precio }
+                )
+                res.json([{
+                    'message': 'producto creado Correctamente'
+                }])
+          
+      } catch (error) {
+        res.json([{
+            'message': error
+        }])
+      }
+
+}
+//Mostrar los categoria
+export const getVentas = async(req, res)=>{
+const {name ,editProduct } = req.decode
+if(name === 'Admin' || editProduct === 'permitido'){
+try {
+    const categorias = await ventasModal.findAll()
+    res.json({
+        message: 'permitido',
+        categorias
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+} else{
+    res.json({message: 'no permitido', name})
+}
+
+
+
+}
+
+//Update categoria
+export const updateVentas = async(req, res)=>{
+
+try {
+    await ventasModal.update(req.body,{
+         where: {id: req.params.id}
+     })
+     res.json({
+         'message': 'Registro actualizado Correctamente' 
+     })
+ } catch (error) {
+     res.json({message: error.message})
+ }
+
+}
+
+//Get One categoria
+export const getOneVentas = async (req, res) =>{
+try {
+  const product = await ventasModal.findAll({
+      where:{
+          id:req.params.id
+      }
+  })
+  res.json(product)
+} catch (error) {
+  res.json({message: error.message})
+}
+}
+//Delete  a categoria
+export const deleteAVentas = async(req, res)=>{
+try {
+    ventasModal.destroy({
+        where:{id:req.params.id}
+    })
+    res.json({
+        'message': 'Registro borrado Correctamente' 
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+}
+// *Categorias*
+
+//Ingresar categoria
+export const registerCategorias = async(req, res)=>{
+
+    try {
+        const {} ={
+            descripcion: req.body.descripcion
+           } 
+           const product = await categoriasModal.findAll({
+            where:{
+                descripcion
+            }
+        }) 
+    
+        if(product.length > 0){
+            res.json([{
+                'message': 'producto ya existente'
+            }])
+        } else {
+            await productDashModel.create(
+                {descripcion }
+                )
+                res.json([{
+                    'message': 'producto creado Correctamente'
+                }])
+        }
+          
+      } catch (error) {
+        res.json([{
+            'message': error
+        }])
+      }
+
+}
+//Mostrar los categoria
+export const getCategorias = async(req, res)=>{
+const {name ,editProduct } = req.decode
+if(name === 'Admin' || editProduct === 'permitido'){
+try {
+    const categorias = await categoriasModal.findAll()
+    res.json({
+        message: 'permitido',
+        categorias
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+} else{
+    res.json({message: 'no permitido', name})
+}
+
+
+
+}
+
+//Update categoria
+export const updateCategorias = async(req, res)=>{
+
+try {
+    await productDashModel.update(req.body,{
+         where: {id: req.params.id}
+     })
+     res.json({
+         'message': 'Registro actualizado Correctamente' 
+     })
+ } catch (error) {
+     res.json({message: error.message})
+ }
+
+}
+
+//Get One categoria
+export const getOneCategorias = async (req, res) =>{
+try {
+  const product = await categoriasModal.findAll({
+      where:{
+          id:req.params.id
+      }
+  })
+  res.json(product)
+} catch (error) {
+  res.json({message: error.message})
+}
+}
+//Delete  a categoria
+export const deleteACategorias = async(req, res)=>{
+try {
+    categoriasModal.destroy({
+        where:{id:req.params.id}
+    })
+    res.json({
+        'message': 'Registro borrado Correctamente' 
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+}
+// *Facturas*
+
+//Ingresar categoria
+export const registerFactura = async(req, res)=>{
+
+    try {
+        const {} ={
+            idUsers: req.body.idUsers
+           } 
+           const product = await facturasModal.findAll({
+            where:{
+                id
+            }
+        }) 
+    
+        if(product.length > 0){
+            res.json([{
+                'message': 'producto ya existente'
+            }])
+        } else {
+            await productDashModel.create(
+                {descripcion }
+                )
+                res.json([{
+                    'message': 'producto creado Correctamente'
+                }])
+        }
+          
+      } catch (error) {
+        res.json([{
+            'message': error
+        }])
+      }
+
+}
+//Mostrar los categoria
+export const getFacturas = async(req, res)=>{
+const {name ,editProduct } = req.decode
+if(name === 'Admin' || editProduct === 'permitido'){
+try {
+    const categorias = await facturasModal.findAll()
+    res.json({
+        message: 'permitido',
+        categorias
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+} else{
+    res.json({message: 'no permitido', name})
+}
+
+
+
+}
+
+//Update categoria
+export const updateFacturas = async(req, res)=>{
+
+try {
+    await facturasModal.update(req.body,{
+         where: {id: req.params.id}
+     })
+     res.json({
+         'message': 'Registro actualizado Correctamente' 
+     })
+ } catch (error) {
+     res.json({message: error.message})
+ }
+
+}
+
+//Get One categoria
+export const getOneFacturas = async (req, res) =>{
+try {
+  const product = await facturasModal.findAll({
+      where:{
+          id:req.params.id
+      }
+  })
+  res.json(product)
+} catch (error) {
+  res.json({message: error.message})
+}
+}
+//Delete  a categoria
+export const deleteAFactura = async(req, res)=>{
+try {
+    facturasModal.destroy({
+        where:{id:req.params.id}
+    })
+    res.json({
+        'message': 'Registro borrado Correctamente' 
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+}
 // *Products*
 
 //Ingresar Productos
 export const registerProductsPost = async(req, res)=>{
 
         try {
-            const {nameProduct, categProduct, stockProduct, priceProduct,tallaProduct} ={
-                nameProduct: req.body.nameProduct,
-                categProduct: req.body.categProduct,
-                stockProduct: req.body.stockProduct,
-                priceProduct: req.body.priceProduct,
-                tallaProduct: req.body.tallaProduct
+            const {descripcion, precio,talla,stock, id_categorias, id_proveedor} ={
+                descripcion: req.body.descripcion,
+                precio: req.body.precio,
+                stock: req.body.stock,
+                talla: req.body.talla,
+                id_categorias: req.body.id_categorias,
+                id_proveedor: req.body.id_proveedor
                } 
                const product = await productDashModel.findAll({
                 where:{
-                    nameProduct: nameProduct,
-                    tallaProduct:tallaProduct
+                    descripcion,
+                    talla
                 }
             }) 
         
@@ -27,7 +313,7 @@ export const registerProductsPost = async(req, res)=>{
                 }])
             } else {
                 await productDashModel.create(
-                    {nameProduct,categProduct, stockProduct, priceProduct,tallaProduct  }
+                    {descripcion, precio,talla,stock, id_categorias, id_proveedor }
                     )
                     res.json([{
                         'message': 'producto creado Correctamente'
@@ -44,7 +330,7 @@ export const registerProductsPost = async(req, res)=>{
 //Mostrar los productos
 export const getproducts = async(req, res)=>{
     const {name ,editProduct } = req.decode
-    if(name === 'Admin' || editProduct === 1){
+    if(name === 'Admin' || editProduct === 'permitido'){
     try {
         const products = await productDashModel.findAll()
         res.json({
@@ -204,67 +490,7 @@ export const deleteAdmin = async(req, res)=>{
     }
 }
 
-// *Orders* 
-//All Orders 
-export const getAllOrders = async (req, res)=>{
-    const {name, orderUsers} = req.decode
-    if(name === 'Admin' || orderUsers === 'permitido'){
-     try {
-         const orders = await orderModel.findAll()
-         res.json({
-             message: 'permitido',
-             orders
-         })
-     } catch (error) {
-         res.json({message: error.message})
-     }
-    } else{
-     res.json({message: 'denegado', name})
-     return
-    }
-    
- }
-//Get One Order
-export const getOneOrder =  async (req, res) =>{
-    try {
-      const product = await orderModel.findAll({
-          where:{
-              id:req.params.id
-          }
-      })
-      res.json(product)
-    } catch (error) {
-      res.json({message: error.message})
-    }
-  }
-//Update Order
-export const updateOrder = async(req, res)=>{
-    
-    try {
-        await orderModel.update(req.body,{
-             where: {id: req.params.id}
-         })
-         res.json({
-             'message': 'Registro actualizado Correctamente' 
-         })
-     } catch (error) {
-         res.json({message: error.message})
-     }
 
-}
-//Delete Order
-export const deleteOrder = async(req, res)=>{
-    try {
-        orderModel.destroy({
-            where:{id:req.params.id}
-        })
-        res.json({
-            'message': 'Registro borrado Correctamente' 
-        })
-    } catch (error) {
-        res.json({message: error.message})
-    }
-}
 //  * Cliente * 
 //Get All Client
 export const getAllClient = async(req, res)=>{

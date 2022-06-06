@@ -22,67 +22,6 @@ export const HomeScreen = () => {
   const [order, setOrder] = useState([])
   const [product, setProduct] = useState([])
 
-  const getProduct = async () =>{
-   
-       const res = await axios.get(URIP,  {
-         headers:{"Authorization": `Bearer ${token}` }
-       })
-       const {message, products, name} = res.data 
-       if(message === 'permitido'){
-   
-         setProduct(products)
-       } else {
-        const action = {
-          type: TYPES.login,
-          payload:{...user,editProduct:'denegado',name }
-        }
-        dispach(action)
-         navigate('/home')
-       }
-   }
- 
-  const getOrders = async () =>{
-   
-       const res = await axios.get(URIO,  {
-         headers:{"Authorization": `Bearer ${token}` }
-       })
-       const {message , orders, name} = res.data
-       if(message === 'permitido'){
-         setOrder(orders)
-       } else {
-        const action = {
-          type: TYPES.login,
-          payload:{...user,orderUsers:'denegado',name }
-        }
-        dispach(action)
-         navigate('/home')
-       }
-   }
-
-  const getUsers = async () =>{
-
-    const res = await axios.get(URI,  {
-      headers:{"Authorization": `Bearer ${token}` }
-    })
-    const {name, message, client} = res.data 
-  if(message === 'permitido'){
-
-    setUsers(client)
-  } else {
-    const action = {
-      type: TYPES.login,
-      payload:{...user,editUsers:'denegado',name }
-    }
-    dispach(action)
-    navigate('/home')
-  }
-}
-useEffect(()=>{
-  getUsers()
-  getOrders()
-  getProduct()
-}, [])
-
   return (
     <div>
 <HeaderComp/>

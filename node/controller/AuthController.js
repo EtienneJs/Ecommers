@@ -68,8 +68,10 @@ export const login = async(req, res)=>{
                             editProduct: logUser[0].editProduct,
                             putProduct: logUser[0].putProduct,
                             editUsers: logUser[0].editUsers,
-                            orderUsers: logUser[0].orderUsers,
-                            newAdmin: logUser[0].newAdmin,
+                            proveedoresEdit: logUser[0].proveedoresEdit,
+                            proveedoresPut: logUser[0].proveedoresPut,
+                            editVentas: logUser[0].editVentas,
+                            putVentas: logUser[0].putVentas,
                             id:logUser[0].id
                         }
                         const token = jwt.sign(payload, 'superKeySecret',{
@@ -141,13 +143,40 @@ export const putProduct = async(req, res)=>{
         return
     }
 }
-//Edit Orders-control
-export const editOrder =(req, res)=>{
+//Edit editVentas
+export const editVentas =(req, res)=>{
     const dataOrder = req.decode
-    if(dataOrder.name === 'Admin' || dataOrder.orderUsers === 'permitido'){
-        res.json(dataOrder)
+    if(dataOrder.name === 'Admin' || dataOrder.editVentas === 'permitido'){
+        res.json({message:'permitido'})
     } else {
-        res.json('Personal no autorizado')
+        res.json({message:'No autorizado'})
+    }
+}
+//Edit putVentas
+export const putVentas =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.putVentas === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+//Edit editVentas
+export const proveedoresEdit =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.proveedoresEdit === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+//Edit putVentas
+export const proveedoresPut =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.proveedoresPut === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
     }
 }
 //Edit Users-control

@@ -1,7 +1,13 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { editAdmin, editOrder, editProduct, editUsers, login, putProduct } from '../controller/AuthController.js'
-import { deleteAClient, deleteAdmin, deleteAProduct, deleteOrder, getAClient, getAllAdmins, getAllClient, getAllOrders, getOneAdmin, getOneOrder, getOneProduct, getproducts, registerAdmin, registerProductsPost, updateAdmin, updateClient, updateOrder, updateProducts } from '../controller/dashController.js'
+import { editAdmin,editProduct, editUsers, editVentas, login, proveedoresEdit, proveedoresPut, putProduct, putVentas } from '../controller/AuthController.js'
+import { deleteACategorias,
+     deleteAClient,
+      deleteAdmin, deleteAFactura, deleteAProduct, deleteAVentas, getAClient, getAllAdmins, getAllClient, 
+      getCategorias, getFacturas, getOneAdmin, getOneCategorias, getOneFacturas, 
+      getOneProduct, getOneVentas, getproducts, getVentas, registerAdmin, registerCategorias, 
+      registerFactura, registerProductsPost, registerVentas, updateAdmin, updateCategorias, updateClient, updateFacturas, 
+       updateProducts, updateVentas } from '../controller/dashController.js'
 
 const router = express.Router()
 export const verify = express.Router()
@@ -39,7 +45,13 @@ router.post('/loginDash',login)
 
 router.get('/editProduct', verify,editProduct )
 
-router.get('/editOrder', verify, editOrder)
+router.get('/editVentas', verify, editVentas)
+
+router.get('/putVentas', verify, putVentas)
+
+router.get('/proveedoresEdit', verify, proveedoresEdit)
+
+router.get('/proveedoresPut', verify, proveedoresPut)
 
 router.get('/editUsers', verify, editUsers)
 
@@ -53,7 +65,39 @@ router.get('/info', verify, (req, res )=>{
 })
 
 //*Dashboard* 
+//--Ventas
 
+//Get All Products 
+router.get('/getVentas', verify, getVentas)
+
+//One Product
+router.get('/editVentas/:id', getOneVentas)
+
+//Register Product
+router.post('/registerVentas', registerVentas)
+
+//update Product
+router.put('/editVentas/:id', updateVentas)
+
+//Delete a product
+router.delete('/Ventas/:id', deleteAVentas)
+
+//--facturas
+
+//Get All Products 
+router.get('/getFacturas', verify, getFacturas)
+
+//One Product
+router.get('/editFacturas/:id', getOneFacturas)
+
+//Register Product
+router.post('/registerFacturas', registerFactura)
+
+//update Product
+router.put('/editFacturas/:id', updateFacturas)
+
+//Delete a product
+router.delete('/Factura/:id', deleteAFactura)
 
 
 //--Products
@@ -73,18 +117,22 @@ router.put('/edit/:id', updateProducts)
 //Delete a product
 router.delete('/:id', deleteAProduct)
 
-//--Orders
-//Get All Orders
-router.get('/getOrders', verify, getAllOrders)
+//--categoria
 
-//One order
-router.get('/editOrders/:id',getOneOrder)
+//Get All Products 
+router.get('/getCategorias', verify, getCategorias)
 
-  //update Order
-router.put('/editOrders/:id', updateOrder)
+//One Product
+router.get('/editCategorias/:id', getOneCategorias)
 
-//Delete a order
-router.delete('/order/:id', deleteOrder)
+//Register Product
+router.post('/registerCategorias', registerCategorias)
+
+//update Product
+router.put('/editCategorias/:id', updateCategorias)
+
+//Delete a product
+router.delete('/categorias/:id', deleteACategorias)
 
 
 //--Client

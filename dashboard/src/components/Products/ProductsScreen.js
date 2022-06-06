@@ -25,7 +25,8 @@ export const ProductsScreen = () => {
       headers:{"Authorization": `Bearer ${token}` }
     })
     const {message, products, name} = res.data 
-    if(message === 'permitido'){
+    console.log(message)
+    if(message === 'permitido' || name==='Admin'){
 
       setProduct(products)
     } else {
@@ -75,6 +76,7 @@ const handleCancel =() =>{
                <th>Talla</th>
                <th>Stock</th>
                <th>Price</th>
+               <th>proveedor</th>
                <th>Action</th>
 
            </tr>
@@ -84,11 +86,12 @@ const handleCancel =() =>{
              
                product.map((product)=>(
                    <tr key={product.id}> 
-                       <td>{product.nameProduct}</td>
-                       <td>{product.categProduct}</td>
-                       <td>{product.tallaProduct}</td>
-                       <td>{product.stockProduct}</td>
-                       <td>{product.priceProduct}</td>
+                       <td>{product.descripcion}</td>
+                       <td>{product.id_categorias}</td>
+                       <td>{product.talla}</td>
+                       <td>{product.stock}</td>
+                       <td>{product.precio}</td>
+                       <td>{product.id_proveedor}</td>
                        <td>
                            <Link to={`/home/edit/${product.id}`} className='btn btn-info'><i className="fa-solid fa-pen-to-square"></i></Link>
                            <button onClick={()=> delProduct(product.id)} className='btn btn-danger'><i className="fa-solid fa-trash"></i></button>

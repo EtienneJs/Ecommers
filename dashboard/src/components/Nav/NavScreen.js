@@ -41,7 +41,7 @@ export const NavScreen = () => {
           <li className="nav-item">
           <Link to='/home/order'  className="nav-link text-white" href="usuarios">
             <span data-feather="users"></span>
-            Order
+            Compras
           </Link>
         </li>
         }

@@ -22,26 +22,6 @@ export const NewProduct = () => {
     const [excelData, setExcelData]=useState(null); 
     const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
     const anotherFileType = ['application/vnd.ms-excel'];
-    useEffect(()=>{
-      getProduct()
-      // getData()
-    }, [])
-    const getProduct = async () =>{
-         const res = await axios.get(URI,  {
-           headers:{"Authorization": `Bearer ${token}` }
-         })
-         const {message, name} = res.data 
-         if(message === 'permitido'){
-           
-         } else {
-          const action = {
-            type: TYPES.login,
-            payload:{...user,putProduct:'denegado',name }
-          }
-          dispach(action)
-           navigate('/home')
-         }
-     }
 
     const handleFile = (e)=>{
       let excelFile = null
@@ -72,17 +52,18 @@ export const NewProduct = () => {
       }
       const handleSubmit = (e) =>{
         e.preventDefault()
-        console.log(excelData)
         if ( excelData ){
+         
         excelData.forEach( async(product) => {
-          let {nameProduct, categProduct, stockProduct, priceProduct,tallaProduct} ={
-              nameProduct: product.nameProduct,
-              categProduct: product.categProduct,
-              stockProduct: product.stockProduct,
-              priceProduct: product.priceProduct,
-              tallaProduct: product.tallaProduct
+          let {descripcion, precio, stock, talla, id_categorias,id_proveedor} ={
+            descripcion: product.descripcion,
+            precio: product.precio,
+            stock: product.stock,
+            talla: product.talla,
+            id_categorias: product.id_categorias,
+            id_proveedor: product.id_proveedor
           }
-          await axios.post(URI ,{nameProduct, categProduct, stockProduct, priceProduct,tallaProduct})
+          await axios.post(URI ,{descripcion, precio,talla,stock, id_categorias, id_proveedor})
           Swal.fire({
             title:'Se han ingresado los datos'
           })

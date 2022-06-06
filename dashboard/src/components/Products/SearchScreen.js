@@ -77,6 +77,7 @@ onChange={handleChangeName}
 <select onChange={handleOnchangeFilter}>
   <option value='nameProduct'>Nombre</option>
   <option value='categProduct'>Categoria</option>
+  <option value='proveedorProduct'>Proveedor</option>
   <option value='tallaProduct'>Talla</option>
 </select>
 <button  onClick={handleSubmitName} className='btn btn-outline-primary mt-1'>Buscar...</button>
@@ -101,6 +102,8 @@ onChange={handleChangeName}
 
             <th>Price <i onClick={() => handleUp('priceProduct','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('priceProduct','number')} className="fa-solid fa-arrow-down"></i></th>
             
+            <th>proveedor <i onClick={() => handleUp('priceProduct','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('priceProduct','number')} className="fa-solid fa-arrow-down"></i></th>
+            
             <th>Action</th>
 
         </tr>
@@ -110,11 +113,12 @@ onChange={handleChangeName}
           
             productFilter.map((product)=>(
                 <tr key={product.id}> 
-                    <td>{product.nameProduct}</td>
-                    <td>{product.categProduct}</td>
-                    <td>{product.tallaProduct}</td>
-                    <td>{product.stockProduct}</td>
-                    <td>{product.priceProduct}</td>
+                    <td>{product.descripcion}</td>
+                    <td>{product.id_categorias}</td>
+                    <td>{product.talla}</td>
+                    <td>{product.stock}</td>
+                    <td>{product.precio}</td>
+                    <td>{product.id_proveedor}</td>
                     <td>
                         <Link to={`/home/edit/${product.id}`} className='btn btn-info'><i className="fa-solid fa-pen-to-square"></i></Link>
                         <button onClick={()=> delProduct(product.id)} className='btn btn-danger'><i className="fa-solid fa-trash"></i></button>

@@ -2,12 +2,13 @@ import { DataTypes } from "sequelize";
 import { db } from "../database/db.js";
 
 
-export const productDashModel = db.define('products',{
-    nameProduct: {type:DataTypes.STRING},
-    categProduct: {type:DataTypes.STRING},
-    stockProduct:{type:DataTypes.NUMBER},
-    priceProduct:{type:DataTypes.NUMBER},
-    tallaProduct:{type:DataTypes.STRING}
+export const productDashModel = db.define('productos',{
+    descripcion: {type:DataTypes.STRING},
+    precio: {type:DataTypes.STRING},
+    talla: {type:DataTypes.STRING},
+    stock:{type:DataTypes.NUMBER},
+    id_categorias:{type:DataTypes.NUMBER},
+    id_proveedor:{type:DataTypes.NUMBER},
 })
 
 export const userModelModal = db.define('modelUsers', {
@@ -19,20 +20,32 @@ export const userModelModal = db.define('modelUsers', {
     editProduct:{type:DataTypes.STRING},
     putProduct:{type:DataTypes.STRING},
     editUsers:{type:DataTypes.STRING},
-    orderUsers:{type:DataTypes.STRING},
-    newAdmin:{type:DataTypes.STRING}
+    proveedoresEdit:{type:DataTypes.STRING},
+    proveedoresPut:{type:DataTypes.STRING},
+    editVentas:{type:DataTypes.STRING},
+    putVentas:{type:DataTypes.STRING},
+    
             
 })
 
 export const clientModal = db.define('users',{
     name: {type:DataTypes.STRING},
     password:{type:DataTypes.STRING},
+    direccion:{type:DataTypes.STRING},
+    telefono:{type:DataTypes.STRING},
     mail: {type:DataTypes.STRING}
 })
-
-export const orderModel = db.define('orders',{
-    nombreUser: {type:DataTypes.STRING},
-    apellidoUser: {type:DataTypes.STRING},
-    nombreProductsShops: {type:DataTypes.STRING},
-    total: {type:DataTypes.NUMBER}
+export const facturasModal = db.define('users',{
+    idUsers : {type:DataTypes.NUMBER}
 })
+export const categoriasModal = db.define('categorias',{
+    descripcion : {type:DataTypes.NUMBER}
+})
+
+export const ventasModal = db.define('ventas',{
+    id_facturas : {type:DataTypes.NUMBER},
+    id_productos : {type:DataTypes.NUMBER},
+    CU: {type:DataTypes.STRING},
+    Precio: {type:DataTypes.NUMBER},
+})
+

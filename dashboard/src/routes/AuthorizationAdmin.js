@@ -7,6 +7,7 @@ import { AuthContext } from '../auth/context/AuthContext';
 
 export const AuthorizationAdmin= ({children}) => {
   const {user} = useContext(AuthContext)
+  console.log(user)
   return (user.name === 'Admin' ) ?  children : <Navigate to={'/home'}/>      
   
 
