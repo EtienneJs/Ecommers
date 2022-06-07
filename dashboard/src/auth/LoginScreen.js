@@ -39,10 +39,10 @@ export const LoginScreen = () => {
         const info = await axios.get(`${URI}info`,  {
           headers:{"Authorization": `Bearer ${token}` }
         })
-        const { name, editProduct, putProduct, editUsers,newAdmin, orderUsers  } = info.data
+        const { name, editProduct, putProduct, editUsers,editVentas, putVentas, proveedoresEdit,proveedoresPut } = info.data
           const action = {
             type: TYPES.login,
-            payload:{UserCheck: true ,name, editProduct ,putProduct, editUsers,newAdmin, orderUsers, token}
+            payload:{UserCheck: true ,name, editProduct ,putProduct, editUsers, editVentas, token,putVentas, proveedoresEdit,proveedoresPut}
           }
          
           dispach(action)

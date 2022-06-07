@@ -68,10 +68,10 @@ export const login = async(req, res)=>{
                             editProduct: logUser[0].editProduct,
                             putProduct: logUser[0].putProduct,
                             editUsers: logUser[0].editUsers,
-                            proveedoresEdit: logUser[0].proveedoresEdit,
-                            proveedoresPut: logUser[0].proveedoresPut,
                             editVentas: logUser[0].editVentas,
                             putVentas: logUser[0].putVentas,
+                            proveedoresEdit:logUser[0].proveedoresEdit,
+                            proveedoresPut:logUser[0].proveedoresPut,
                             id:logUser[0].id
                         }
                         const token = jwt.sign(payload, 'superKeySecret',{
@@ -97,6 +97,9 @@ export const login = async(req, res)=>{
                             putProduct: logUser[0].putProduct,
                             editUsers: logUser[0].editUsers,
                             orderUsers: logUser[0].orderUsers,
+                            editVentas: logUser[0].editVentas,
+                            putVentas: logUser[0].putVentas,
+                            proveedoresEdit:logUser[0].proveedoresEdit,
                             id:logUser[0].id
                            
                         }
