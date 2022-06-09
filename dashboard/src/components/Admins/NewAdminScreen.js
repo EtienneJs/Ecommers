@@ -20,9 +20,14 @@ export const NewAdminScreen = () => {
     editProduct:'permitido',
     putProduct:'permitido',
     editUsers:'permitido',
-    orderUsers:'permitido'
+    proveedoresEdit:'permitido',
+    proveedoresPut:'permitido',
+    editVentas:'permitido',
+    editFacturas:'permitido',
+    editCategorias:'permitido',
+    putCategorias:'permitido',
   })
-  const {name,password, mail, cell, direction, editProduct, putProduct,editUsers,orderUsers} = admin
+  const { putCategorias,editCategorias,name,password, mail, cell, direction, editProduct, putProduct,editUsers,proveedoresEdit, proveedoresPut,editVentas,editFacturas} = admin
   const token = user.token
   const navigate = useNavigate()
   useEffect(()=>{
@@ -55,7 +60,12 @@ export const NewAdminScreen = () => {
       editProduct,
       putProduct,
       editUsers,
-      orderUsers
+      proveedoresEdit,
+      proveedoresPut,
+      editVentas,
+      editFacturas,
+      editCategorias,
+      putCategorias
     },{
       headers:{"Authorization": `Bearer ${token}` }
     })
@@ -158,7 +168,42 @@ const handleChange = (e) =>{
               </div>
               <div className="mb-3 m-2 d-flex flex-column">
               <label className="form-label">Ordenar Usuarios</label>
-              <select name='orderUsers' onChange={handleChange}>
+              <select name='proveedoresEdit' onChange={handleChange}>
+                <option value='permitido'>permitido</option>
+                <option value='denegado'>denegado</option>
+              </select>
+              </div>
+              <div className="mb-3 m-2 d-flex flex-column">
+              <label className="form-label">New Provedores</label>
+              <select name='proveedoresPut' onChange={handleChange}>
+                <option value='permitido'>permitido</option>
+                <option value='denegado'>denegado</option>
+              </select>
+              </div>
+              <div className="mb-3 m-2 d-flex flex-column">
+              <label className="form-label">Ventas</label>
+              <select name='editVentas' onChange={handleChange}>
+                <option value='permitido'>permitido</option>
+                <option value='denegado'>denegado</option>
+              </select>
+              </div>
+              <div className="mb-3 m-2 d-flex flex-column">
+              <label className="form-label">Facturas Screen</label>
+              <select name='editFacturas' onChange={handleChange}>
+                <option value='permitido'>permitido</option>
+                <option value='denegado'>denegado</option>
+              </select>
+              </div>
+              <div className="mb-3 m-2 d-flex flex-column">
+              <label className="form-label">editCategorias</label>
+              <select name='editCategorias' onChange={handleChange}>
+                <option value='permitido'>permitido</option>
+                <option value='denegado'>denegado</option>
+              </select>
+              </div>
+              <div className="mb-3 m-2 d-flex flex-column">
+              <label className="form-label"> putCategorias</label>
+              <select name=' putCategorias' onChange={handleChange}>
                 <option value='permitido'>permitido</option>
                 <option value='denegado'>denegado</option>
               </select>

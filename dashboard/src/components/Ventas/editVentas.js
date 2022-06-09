@@ -4,19 +4,18 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { HeaderComp } from '../Nav/HeaderComp'
 import { NavScreen } from '../Nav/NavScreen'
 
-const URI = 'http://localhost:8000/dashboard/editOrders/'
+const URI = 'http://localhost:8000/dashboard/editVentas/'
 
-export const EditOrders = () => {
+export const EditVentas = () => {
    
 
     const [order, setOrder] = useState({
-      nombreUser:'',
-      apellidoUser:'',
-      nombreProductsShops:'',
-      total:'',
-      updatedAt:''
+    id_facturas:'',
+    id_productos:'',
+    CU:'',
+    Precio:''
     })
-    const {nombreUser,apellidoUser,nombreProductsShops,total,updatedAt} = order
+    const {id_facturas,id_productos, CU, Precio} = order
     const [loading, setLoading] = useState()
     const navigate = useNavigate()
 
@@ -27,26 +26,18 @@ export const EditOrders = () => {
 },[])
     const getBlogById = async () =>{
         const res = await axios.get(`${URI}${id}`)
-        const {nombreUser, apellidoUser, nombreProductsShops, total, updatedAt} = res.date[0]
+        const {id_facturas,id_productos, CU, Precio} = res.data[0]
         setOrder({
-          nombreUser,
-          apellidoUser,
-          nombreProductsShops,
-          total,
-          updatedAt
+          id_facturas,id_productos, CU, Precio
         })
         setLoading(true)
     }
     const update = async(e) =>{
         e.preventDefault()
         await axios.put(`${URI}${id}`, {
-             nombreUser,
-             apellidoUser,
-             nombreProductsShops,
-             total,
-             updatedAt
+          id_facturas,id_productos, CU, Precio
         })
-        navigate('/home/order')
+        navigate('/home/ventas')
     }
     
     const handleChange = (e) =>{
@@ -68,52 +59,42 @@ export const EditOrders = () => {
               <form onSubmit={update}  className='w-100' >
               <div className='d-flex flex-wrap justify-content-center align-items-center'>
               <div className="mb-3 m-2">
-                  <label className="form-label">Name</label>
+                  <label className="form-label">IdFacturas</label>
                   <input
-                  value={nombreUser}
-                  name='nombreUser'
+                  value={id_facturas}
+                  name='id_facturas'
                   onChange={handleChange}
                   type='text'
                   className="form-control"
                   />
                   </div>
                   <div className="mb-3 m-2">
-                  <label className="form-label">Apellido</label>
+                  <label className="form-label">idProductos</label>
                   <input
                   onChange={handleChange}
-                  value={apellidoUser}
-                  name='apellidoUser'
+                  value={id_productos}
+                  name='id_productos'
                   type='text'
                   className="form-control"
                   />
                   </div>
                   <div className="mb-3 m-2">
-                  <label className="form-label">Productos</label>
+                  <label className="form-label">C/U</label>
                   <input
-                    value={nombreProductsShops}
+                    value={CU}
                     onChange={handleChange}
-                    name='nombreProductsShops'
+                    name='CU'
                   type='text'
                   className="form-control"
                   />
                   </div>
                   <div className="mb-3 m-2">
-                  <label className="form-label">total</label>
+                  <label className="form-label">Precio</label>
                   <input
-                  onChange={handleChange}
-                  value={total}
-                  name='total'
-                  type='number'
-                  className="form-control"
-                  />
-                  </div>
-                  <div className="mb-3 m-2">
-                  <label className="form-label">updatedAt</label>
-                  <input
-                  onChange={handleChange}
-                  value={updatedAt}
-                  name='total'
-                  type='date'
+                    value={Precio}
+                    onChange={handleChange}
+                    name='Precio'
+                  type='text'
                   className="form-control"
                   />
                   </div>

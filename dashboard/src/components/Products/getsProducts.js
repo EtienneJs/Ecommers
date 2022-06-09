@@ -7,25 +7,25 @@ export const getProducts = async (filter, name, token) =>{
         headers:{"Authorization": `Bearer ${token}` }
     }) 
     const resData= res.data.products
-    
-    if(filter === 'nameProduct'){ 
+    if(filter === 'descripcion'){ 
             if(name === ''){
-                return []
+                return [resData]
             }
             name= name.toLowerCase();
             
            return  resData.filter(hero => hero.descripcion.toLowerCase().includes(name))
         
-    } else if (filter === 'categProduct') {
+    } else if (filter === 'id_categorias') {
             if(name === ''){
-                return []
+                return [resData]
             }
-            name= name.toLowerCase();
-           return  resData.filter(hero => hero.id_categorias.toLowerCase().includes(name))
+
+            name = parseInt(name)
+           return  resData.filter(hero => hero.id_categorias === name)
         
-    } else if (filter === 'tallaProduct') { 
+    } else if (filter === 'talla') { 
         if(name === ''){
-            return []
+            return [resData]
         }
         name= name.toLowerCase();
        return  resData.filter(hero => hero.talla.toLowerCase().includes(name))
@@ -33,7 +33,7 @@ export const getProducts = async (filter, name, token) =>{
 }
 else if (filter === 'stockProduct') {
     if(name === ''){
-        return []
+        return [resData]
     }
     name = parseInt(name)
    return  resData.filter(hero => hero.stock.includes(name))
@@ -41,16 +41,17 @@ else if (filter === 'stockProduct') {
 }
 else if (filter === 'priceProduct') {
     if(name === ''){
-        return []
+        return [resData]
     }
    return  resData.filter(hero => hero.precio.includes(name))
 
 }
-else if (filter === 'proveedorProduct') {
+else if (filter === 'id_proveedor') {
     if(name === ''){
-        return []
+        return [resData]
     }
-   return  resData.filter(hero => hero.id_proveedor.includes(name))
+    name = parseInt(name)
+   return  resData.filter(hero => hero.id_proveedor === name)
 
 }
 }

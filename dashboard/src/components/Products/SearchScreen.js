@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {  Link } from 'react-router-dom'
 import axios from 'axios'
 import {getProducts} from './getsProducts'
-import { orderBy } from './orderBY'
+import { orderBy } from './orderBy'
+import { AuthContext } from '../../auth/context/AuthContext'
 const URI2 ='http://localhost:8000/dashboard/'
 
 export const SearchScreen = (token) => {
-  const tokenR = token.token
+  const {user, dispach} = useContext(AuthContext)
+  const tokenR = user.token
   const [productName, setProductName] = useState('')
   const [productFilter, setProductFilter] = useState()
-  const [filter, setFilter] = useState('nameProduct')
+  const [filter, setFilter] = useState('descripcion')
   
   const handleChangeName = (e) =>{
     e.preventDefault()
@@ -18,7 +20,10 @@ export const SearchScreen = (token) => {
   const handleSubmitName = () =>{
     const promesa1 = Promise.resolve( getProducts(filter,productName,tokenR))
     promesa1.then((value)=>{
+      console.log(value)
+     if(productName === ''){
       setProductFilter(value)
+     } else {setProductFilter(value)}
     })
   }
 
@@ -75,10 +80,10 @@ value={productName}
 onChange={handleChangeName}
 />
 <select onChange={handleOnchangeFilter}>
-  <option value='nameProduct'>Nombre</option>
-  <option value='categProduct'>Categoria</option>
-  <option value='proveedorProduct'>Proveedor</option>
-  <option value='tallaProduct'>Talla</option>
+  <option value='descripcion'>Nombre</option>
+  <option value='id_categorias'>Categoria</option>
+  <option value='id_proveedor'>Proveedor</option>
+  <option value='talla'>Talla</option>
 </select>
 <button  onClick={handleSubmitName} className='btn btn-outline-primary mt-1'>Buscar...</button>
     </div>
@@ -92,17 +97,17 @@ onChange={handleChangeName}
     <table className='table text-white '>
     <thead className='table-primary'>
         <tr>
-            <th>Nombre <i onClick={() => handleUp('nameProduct','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('nameProduct','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th>Nombre <i onClick={() => handleUp('descripcion','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('descripcion','string')} className="fa-solid fa-arrow-down"></i></th>
 
-            <th>Categoria <i onClick={() => handleUp('categProduct','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('categProduct','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th>Categoria <i onClick={() => handleUp('id_categorias','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('id_categorias','number')} className="fa-solid fa-arrow-down"></i></th>
 
-            <th>Talla <i onClick={() => handleUp('tallaProduct','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('tallaProduct','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th>Talla <i onClick={() => handleUp('talla','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('talla','string')} className="fa-solid fa-arrow-down"></i></th>
 
             <th>Stock <i onClick={() => handleUp('stockProduct','number')  } className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('stockProduct','number')  } className="fa-solid fa-arrow-down"></i></th>
 
             <th>Price <i onClick={() => handleUp('priceProduct','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('priceProduct','number')} className="fa-solid fa-arrow-down"></i></th>
             
-            <th>proveedor <i onClick={() => handleUp('priceProduct','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('priceProduct','number')} className="fa-solid fa-arrow-down"></i></th>
+            <th>proveedor <i onClick={() => handleUp('id_proveedor','number')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('id_proveedor','number')} className="fa-solid fa-arrow-down"></i></th>
             
             <th>Action</th>
 

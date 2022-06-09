@@ -7,6 +7,7 @@ import { AuthContext } from '../../auth/context/AuthContext'
 import { TYPES } from '../../auth/types/TYPES'
 import { HeaderComp } from '../Nav/HeaderComp'
 import { NavScreen } from '../Nav/NavScreen'
+import { SearchScreen } from './SearchScreen'
 const URI ='http://localhost:8000/dashboard/getAdmin'
 const URI2 ='http://localhost:8000/dashboard/admin/'
 
@@ -17,9 +18,10 @@ export const AllAdmin = () => {
   const {user, dispach} = useContext(AuthContext)
   const token = user.token
   const navigate = useNavigate()
-  const [productName, setProductName] = useState('')
+  const [productName, setProductName] = useState(0)
   const [filter, setFilter] = useState('name')
   const [admin, setAdmin] = useState([])
+  const [search, setSearch] = useState(null)
   useEffect(()=>{
     getProduct()
   }, [])
@@ -29,7 +31,6 @@ export const AllAdmin = () => {
        })
        const {message, Admins, name} = res.data
        if(message === 'permitido'){
-
          setAdmin(Admins)
        } else {
         const action = {
@@ -46,18 +47,16 @@ export const AllAdmin = () => {
     await axios.delete(`${URI2}${id}`)
     getProduct()
   }
-  const handleSearch = (e) =>{
-    e.preventDefault()
-    setProductName(e.target.value)
-    const promesa1 = Promise.resolve( getAdmin(filter,productName,user.token))
-    promesa1.then((value)=>{
-      setAdmin(value)
-    })
-  }
+ 
   const handleOnchangeFilter = (e) =>{
     setFilter(e.target.value)
     getAdmin(filter,productName,user.token)
-  
+  }
+  const handleSearch = () =>{
+    setSearch(true)
+  }
+  const handleCancel =() =>{
+    setSearch(null)
   }
   return (
     <div>
@@ -67,19 +66,14 @@ export const AllAdmin = () => {
      <NavScreen/>
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
           <div className="d-flex flex-column justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-          <div className='d-flex flex-column'>
-      <input type='text' onChange={handleSearch}/>
-      <select onChange={handleOnchangeFilter} className='mb-3'>
-        <option value='name'>Nombre</option>
-        <option value='mail'>Gmail</option>
-        <option value='cell'>Phone</option>
-        <option value='direction'>direction</option>
-        <option value='editProduct'>editProduct</option>
-        <option value='editUsers'>editUsers</option>
-        <option value='orderUsers'>orderUsers</option>
-
-      </select>
+         <h2>Admin Screen</h2>
+         <div>
+      <button onClick={handleSearch} className='btn btn-info mb-4'> <i className="fa-solid fa-magnifying-glass"></i> </button>
+      <button onClick={handleCancel} className='btn btn-danger mr-3 mb-4'> <i className="fa-solid fa-x"></i> </button>
       </div>
+         { search 
+        ? <SearchScreen token={token}/>:
+        
            <table className='table text-white '>
            <thead className='table-primary'>
                <tr>
@@ -87,9 +81,6 @@ export const AllAdmin = () => {
                    <th>Mail</th>
                    <th>Cell</th>
                    <th>Direction</th>
-                   <th>Product</th>
-                   <th>Users</th>
-                   <th>Order</th>
                    <th>Actions</th>
                </tr>
            </thead>
@@ -102,9 +93,6 @@ export const AllAdmin = () => {
                            <td>{product.mail}</td>
                            <td>{product.cell}</td>
                            <td>{product.direction}</td>
-                           <td>{product.editProduct}</td>
-                           <td>{product.editUsers}</td>
-                           <td>{product.orderUsers}</td>
                            
                            <td>
                                <Link to={`/home/editAdmin/${product.id}`} className='btn btn-info'><i className="fa-solid fa-pen-to-square"></i></Link>
@@ -114,7 +102,8 @@ export const AllAdmin = () => {
                    ))
                }
            </tbody>
-       </table>
+       </table> }
+          
            
           </div> 
         </main>

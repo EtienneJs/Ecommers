@@ -9,23 +9,20 @@ const EditProduct = () => {
     const {id} = useParams()
     const navigate = useNavigate()
     const [Product, setProduct] = useState({
-        nombre:'',
-        categoria:'',
+        descripcion:'',
         talla:'',
         stock:'',
-        price:''
+        precio:'',
+        id_categorias:0,
+        id_proveedor:0
     })
-    const { nombre,categoria,talla,stock,price  } = Product
+    const { descripcion,talla,stock,precio,id_categorias,id_proveedor  } = Product
 
 
     const update = async(e) =>{
         e.preventDefault()
         await axios.put(`${URI}${id}`, {
-            nameProduct: nombre,
-            categProduct: categoria,
-            tallaProduct: talla,
-            stockProduct: stock,
-            priceProduct: price
+            descripcion,talla,stock,precio,id_categorias,id_proveedor
         })
         navigate('/home/allProduct')
     }
@@ -36,13 +33,9 @@ const EditProduct = () => {
 
     const getBlogById = async () =>{
         const res = await axios.get(URI+id)
-        const {nameProduct, categProduct, tallaProduct,stockProduct,priceProduct} = res.data[0]
+        const {descripcion,talla,stock,precio,id_categorias,id_proveedor} = res.data[0]
         setProduct({
-        nombre:nameProduct,
-        categoria:categProduct,
-        talla:tallaProduct,
-        stock:stockProduct,
-        price:priceProduct
+            descripcion,talla,stock,precio,id_categorias,id_proveedor
         })
     }
     const handleChange = (e) =>{
@@ -60,8 +53,8 @@ const EditProduct = () => {
           <div className="mb-3">
               <label className="form-label">Name</label>
               <input
-              value={nombre}
-              name='nombre'
+              value={descripcion}
+              name='descripcion'
               onChange={handleChange}
               type='text'
               className="form-control"
@@ -70,8 +63,8 @@ const EditProduct = () => {
               <div className="mb-3">
               <label className="form-label">Categoria</label>
               <input
-              value={categoria}
-              name='categoria'
+              value={id_categorias}
+              name='id_categorias'
               onChange={handleChange}
               type='text'
               className="form-control"
@@ -96,10 +89,20 @@ const EditProduct = () => {
               />
           </div>
           <div className="mb-3">
-              <label className="form-label">Price</label>
+              <label className="form-label">Provedor</label>
               <input
-              value={price}
-              name='price'
+              value={id_proveedor}
+              name='id_proveedor'
+              onChange={handleChange}
+              type='number'
+              className="form-control"
+              />
+          </div>
+          <div className="mb-3">
+              <label className="form-label">precio</label>
+              <input
+              value={precio}
+              name='precio'
               onChange={handleChange}
               type='text'
               className="form-control"

@@ -25,7 +25,6 @@ export const ProductsScreen = () => {
       headers:{"Authorization": `Bearer ${token}` }
     })
     const {message, products, name} = res.data 
-    console.log(message)
     if(message === 'permitido' || name==='Admin'){
 
       setProduct(products)

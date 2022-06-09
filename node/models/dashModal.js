@@ -24,6 +24,10 @@ export const userModelModal = db.define('modelUsers', {
     proveedoresPut:{type:DataTypes.STRING},
     editVentas:{type:DataTypes.STRING},
     putVentas:{type:DataTypes.STRING},
+    editFacturas:{type:DataTypes.STRING},
+    putFacturas:{type:DataTypes.STRING},
+    putCategorias:{type:DataTypes.STRING},
+    editCategorias:{type:DataTypes.STRING},
     
             
 })
@@ -35,8 +39,8 @@ export const clientModal = db.define('users',{
     telefono:{type:DataTypes.STRING},
     mail: {type:DataTypes.STRING}
 })
-export const facturasModal = db.define('users',{
-    idUsers : {type:DataTypes.NUMBER}
+export const facturasModal = db.define('facturas',{
+    Usersid : {type:DataTypes.NUMBER}
 })
 export const categoriasModal = db.define('categorias',{
     descripcion : {type:DataTypes.NUMBER}
@@ -47,5 +51,10 @@ export const ventasModal = db.define('ventas',{
     id_productos : {type:DataTypes.NUMBER},
     CU: {type:DataTypes.STRING},
     Precio: {type:DataTypes.NUMBER},
+})
+export const provedoresModal = db.define('proveedores',{
+    nombre: {type:DataTypes.STRING},
+    direccion: {type:DataTypes.STRING},
+    telefono: {type:DataTypes.NUMBER},
 })
 

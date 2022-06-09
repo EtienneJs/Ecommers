@@ -1,5 +1,93 @@
-import { categoriasModal, clientModal, facturasModal,productDashModel, userModelModal, ventasModal} from "../models/dashModal.js"
+import { categoriasModal, clientModal, facturasModal,productDashModel, provedoresModal, userModelModal, ventasModal} from "../models/dashModal.js"
 import bcryptjs from 'bcryptjs'
+// *Provedores*
+
+//Ingresar categoria
+export const registerProvedores = async(req, res)=>{
+
+    try {
+        const {nombre, direccion, telefono} ={
+           nombre :req.body.nombre,
+            direccion :req.body.direccion,
+            telefono:req.body.telefono,
+           } 
+            await provedoresModal.create(
+                {nombre, direccion, telefono }
+                )
+                res.json([{
+                    'message': 'producto creado Correctamente'
+                }])
+          
+      } catch (error) {
+        res.json([{
+            'message': error
+        }])
+      }
+
+}
+//Mostrar los categoria
+export const getProvedores = async(req, res)=>{
+const {name , proveedoresEdit } = req.decode
+if(name === 'Admin' || proveedoresEdit === 'permitido'){
+try {
+    const proveedores = await provedoresModal.findAll()
+    res.json({
+        message: 'permitido',
+        proveedores
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+} else{
+    res.json({message: 'no permitido', name})
+}
+
+
+
+}
+
+//Update categoria
+export const updateProvedores = async(req, res)=>{
+
+try {
+    await provedoresModal.update(req.body,{
+         where: {id: req.params.id}
+     })
+     res.json({
+         'message': 'Registro actualizado Correctamente' 
+     })
+ } catch (error) {
+     res.json({message: error.message})
+ }
+
+}
+
+//Get One categoria
+export const getOneProvedores = async (req, res) =>{
+try {
+  const product = await provedoresModal.findAll({
+      where:{
+          id:req.params.id
+      }
+  })
+  res.json(product)
+} catch (error) {
+  res.json({message: error.message})
+}
+}
+//Delete  a categoria
+export const deleteAProvedores = async(req, res)=>{
+try {
+    provedoresModal.destroy({
+        where:{id:req.params.id}
+    })
+    res.json({
+        'message': 'Registro borrado Correctamente' 
+    })
+} catch (error) {
+    res.json({message: error.message})
+}
+}
 
 // *Ventas*
 
@@ -13,7 +101,7 @@ export const registerVentas = async(req, res)=>{
             CU:req.body.CU,
             Precio:req.body.Precio
            } 
-            await productDashModel.create(
+            await ventasModal.create(
                 {id_facturas, id_productos,CU,Precio }
                 )
                 res.json([{
@@ -29,13 +117,13 @@ export const registerVentas = async(req, res)=>{
 }
 //Mostrar los categoria
 export const getVentas = async(req, res)=>{
-const {name ,editProduct } = req.decode
-if(name === 'Admin' || editProduct === 'permitido'){
+const {name ,editVentas } = req.decode
+if(name === 'Admin' || editVentas === 'permitido'){
 try {
-    const categorias = await ventasModal.findAll()
+    const ventas = await ventasModal.findAll()
     res.json({
         message: 'permitido',
-        categorias
+        ventas
     })
 } catch (error) {
     res.json({message: error.message})
@@ -96,27 +184,16 @@ try {
 export const registerCategorias = async(req, res)=>{
 
     try {
-        const {} ={
+        const {descripcion} ={
             descripcion: req.body.descripcion
            } 
-           const product = await categoriasModal.findAll({
-            where:{
-                descripcion
-            }
-        }) 
-    
-        if(product.length > 0){
-            res.json([{
-                'message': 'producto ya existente'
-            }])
-        } else {
-            await productDashModel.create(
+            await categoriasModal.create(
                 {descripcion }
                 )
                 res.json([{
                     'message': 'producto creado Correctamente'
                 }])
-        }
+    
           
       } catch (error) {
         res.json([{
@@ -127,8 +204,8 @@ export const registerCategorias = async(req, res)=>{
 }
 //Mostrar los categoria
 export const getCategorias = async(req, res)=>{
-const {name ,editProduct } = req.decode
-if(name === 'Admin' || editProduct === 'permitido'){
+const {name ,editCategorias } = req.decode
+if(name === 'Admin' || editCategorias === 'permitido'){
 try {
     const categorias = await categoriasModal.findAll()
     res.json({
@@ -150,7 +227,7 @@ try {
 export const updateCategorias = async(req, res)=>{
 
 try {
-    await productDashModel.update(req.body,{
+    await categoriasModal.update(req.body,{
          where: {id: req.params.id}
      })
      res.json({
@@ -225,13 +302,13 @@ export const registerFactura = async(req, res)=>{
 }
 //Mostrar los categoria
 export const getFacturas = async(req, res)=>{
-const {name ,editProduct } = req.decode
-if(name === 'Admin' || editProduct === 'permitido'){
+const {name ,editFacturas } = req.decode
+if(name === 'Admin' || editFacturas === 'permitido'){
 try {
-    const categorias = await facturasModal.findAll()
+    const facturas = await facturasModal.findAll()
     res.json({
         message: 'permitido',
-        categorias
+        facturas
     })
 } catch (error) {
     res.json({message: error.message})
@@ -442,7 +519,7 @@ export const updateAdmin =  async(req, res)=>{
 //Register an Admin 
 export const registerAdmin =async(req, res) =>{
     try {
-        const {name, password, mail, cell, direction,editProduct,putProduct,editUsers, orderUsers} ={
+        const {name, password, mail, cell, direction, putCategorias,editCategorias, editProduct, putProduct,editUsers,proveedoresEdit, proveedoresPut,editVentas,editFacturas} ={
             name:req.body.name,
             password:req.body.password,
             mail:req.body.mail,
@@ -451,7 +528,12 @@ export const registerAdmin =async(req, res) =>{
             editProduct: req.body.editProduct,
             putProduct:req.body.putProduct,
             editUsers: req.body.editUsers,
-            orderUsers: req.body.orderUsers
+            proveedoresEdit:req.body.proveedoresEdit,
+            proveedoresPut:req.body.proveedoresPut,
+            editVentas:req.body.editVentas,
+            editFacturas:req.body.editFacturas,
+            editCategorias:req.body.editCategorias,
+            putCategorias:req.body.putCategorias
           }
         let passHash = await bcryptjs.hash(password, 8)
 
@@ -466,7 +548,7 @@ export const registerAdmin =async(req, res) =>{
         } else {
             
         await userModelModal.create(
-            {name,password:passHash, mail,cell , direction, editProduct, putProduct,editUsers, orderUsers}
+            {name,password:passHash, mail,cell , direction,  putCategorias,editCategorias,editProduct, putProduct,editUsers,proveedoresEdit, proveedoresPut,editVentas,editFacturas}
             )
             res.json([{
                 'message': 'Usuario creado Correctamente'

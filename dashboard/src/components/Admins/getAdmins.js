@@ -47,6 +47,14 @@ else if (filter === 'editProduct') {
    return  resData.filter(hero => hero.editProduct.includes(name))
 
 }
+else if (filter === 'putProduct') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.putProduct.includes(name))
+
+}
 else if (filter === 'editUsers') {
     if(name === ''){
         return resData
@@ -55,12 +63,67 @@ else if (filter === 'editUsers') {
    return  resData.filter(hero => hero.editUsers.includes(name))
 
 }
-else if (filter === 'orderUsers') {
+else if (filter === 'proveedoresEdit') {
     if(name === ''){
         return resData
     }
     name= name.toLowerCase();
-   return  resData.filter(hero => hero.orderUsers.includes(name))
+   return  resData.filter(hero => hero.proveedoresEdit.includes(name))
+
+}
+else if (filter === 'proveedoresPut') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.proveedoresEdit.includes(name))
+
+}else if (filter === 'editVentas') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.editVentas.includes(name))
+
+}
+else if (filter === 'putVentas') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.putVentas.includes(name))
+
+}
+else if (filter === 'editFacturas') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.editFacturas.includes(name))
+
+}
+else if (filter === 'putFacturas') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.putFacturas.includes(name))
+
+}
+else if (filter === 'editCategorias') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.editCategorias.includes(name))
+
+}
+else if (filter === 'putCategorias') {
+    if(name === ''){
+        return resData
+    }
+    name= name.toLowerCase();
+   return  resData.filter(hero => hero.putCategorias.includes(name))
 
 }
 

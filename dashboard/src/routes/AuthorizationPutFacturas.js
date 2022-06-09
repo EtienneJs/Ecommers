@@ -4,10 +4,7 @@ import { AuthContext } from '../auth/context/AuthContext';
 
 
 
-export const AuthorizationOrder= ({children}) => {
+export const AuthorizationPutFacturas= ({children}) => {
   const {user} = useContext(AuthContext)
-  return (user.name === 'Admin' || user.orderUsers === 'permitido') ?  children : <Navigate to={'/home'}/>      
-  
-
-
+  return (user.name === 'Admin' || user.putFacturas === 'permitido') ?  children : <Navigate to={'/home'}/>      
 }

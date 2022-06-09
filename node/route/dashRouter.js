@@ -1,13 +1,13 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { editAdmin,editProduct, editUsers, editVentas, login, proveedoresEdit, proveedoresPut, putProduct, putVentas } from '../controller/AuthController.js'
+import { editAdmin,editCategorias,editFacturas,editProduct, editUsers, editVentas, login, proveedoresEdit, proveedoresPut, putCategorias, putFacturas, putProduct, putVentas } from '../controller/AuthController.js'
 import { deleteACategorias,
      deleteAClient,
-      deleteAdmin, deleteAFactura, deleteAProduct, deleteAVentas, getAClient, getAllAdmins, getAllClient, 
+      deleteAdmin, deleteAFactura, deleteAProduct, deleteAProvedores, deleteAVentas, getAClient, getAllAdmins, getAllClient, 
       getCategorias, getFacturas, getOneAdmin, getOneCategorias, getOneFacturas, 
-      getOneProduct, getOneVentas, getproducts, getVentas, registerAdmin, registerCategorias, 
-      registerFactura, registerProductsPost, registerVentas, updateAdmin, updateCategorias, updateClient, updateFacturas, 
-       updateProducts, updateVentas } from '../controller/dashController.js'
+      getOneProduct, getOneProvedores, getOneVentas, getproducts, getProvedores, getVentas, registerAdmin, registerCategorias, 
+      registerFactura, registerProductsPost, registerProvedores, registerVentas, updateAdmin, updateCategorias, updateClient, updateFacturas, 
+       updateProducts, updateProvedores, updateVentas } from '../controller/dashController.js'
 
 const router = express.Router()
 export const verify = express.Router()
@@ -44,20 +44,23 @@ verify.use((req, res, next)=>{
 router.post('/loginDash',login)
 
 router.get('/editProduct', verify,editProduct )
+router.get('/registerProducts',verify, putProduct)
 
 router.get('/editVentas', verify, editVentas)
-
 router.get('/putVentas', verify, putVentas)
 
 router.get('/proveedoresEdit', verify, proveedoresEdit)
-
 router.get('/proveedoresPut', verify, proveedoresPut)
 
 router.get('/editUsers', verify, editUsers)
-
 router.get('/editAdmins', verify, editAdmin)
 
-router.get('/registerProducts',verify, putProduct)
+
+router.get('/editFacturas', verify , editFacturas)
+router.get('/putFacturas', verify , putFacturas)
+
+router.get('/editCategorias', verify , editCategorias)
+router.get('/putCategorias', verify , putCategorias)
 
 router.get('/info', verify, (req, res )=>{
     const dataUser = req.decode
@@ -65,6 +68,23 @@ router.get('/info', verify, (req, res )=>{
 })
 
 //*Dashboard* 
+//--Provedores
+
+//Get All Products 
+router.get('/getprovedores', verify, getProvedores)
+
+//One Product
+router.get('/editprovedores/:id', getOneProvedores)
+
+//Register Product
+router.post('/registerprovedores', registerProvedores)
+
+//update Product
+router.put('/editprovedores/:id', updateProvedores)
+
+//Delete a product
+router.delete('/provedores/:id', deleteAProvedores)
+
 //--Ventas
 
 //Get All Products 

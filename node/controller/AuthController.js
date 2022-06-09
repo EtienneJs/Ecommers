@@ -70,8 +70,12 @@ export const login = async(req, res)=>{
                             editUsers: logUser[0].editUsers,
                             editVentas: logUser[0].editVentas,
                             putVentas: logUser[0].putVentas,
+                            putFacturas: logUser[0].putFacturas,
+                            editFacturas: logUser[0].editFacturas,
                             proveedoresEdit:logUser[0].proveedoresEdit,
                             proveedoresPut:logUser[0].proveedoresPut,
+                            editCategorias: logUser[0].editCategorias,
+                            putCategorias: logUser[0].putCategorias,
                             id:logUser[0].id
                         }
                         const token = jwt.sign(payload, 'superKeySecret',{
@@ -98,7 +102,11 @@ export const login = async(req, res)=>{
                             editUsers: logUser[0].editUsers,
                             orderUsers: logUser[0].orderUsers,
                             editVentas: logUser[0].editVentas,
+                            putFacturas: logUser[0].putFacturas,
+                            editFacturas: logUser[0].editFacturas,
                             putVentas: logUser[0].putVentas,
+                            editCategorias: logUser[0].editCategorias,
+                            putCategorias: logUser[0].putCategorias,
                             proveedoresEdit:logUser[0].proveedoresEdit,
                             id:logUser[0].id
                            
@@ -146,7 +154,7 @@ export const putProduct = async(req, res)=>{
         return
     }
 }
-//Edit editVentas
+//Edit Ventas
 export const editVentas =(req, res)=>{
     const dataOrder = req.decode
     if(dataOrder.name === 'Admin' || dataOrder.editVentas === 'permitido'){
@@ -155,7 +163,6 @@ export const editVentas =(req, res)=>{
         res.json({message:'No autorizado'})
     }
 }
-//Edit putVentas
 export const putVentas =(req, res)=>{
     const dataOrder = req.decode
     if(dataOrder.name === 'Admin' || dataOrder.putVentas === 'permitido'){
@@ -164,7 +171,7 @@ export const putVentas =(req, res)=>{
         res.json({message:'No autorizado'})
     }
 }
-//Edit editVentas
+//Edit Proveerdores
 export const proveedoresEdit =(req, res)=>{
     const dataOrder = req.decode
     if(dataOrder.name === 'Admin' || dataOrder.proveedoresEdit === 'permitido'){
@@ -173,10 +180,43 @@ export const proveedoresEdit =(req, res)=>{
         res.json({message:'No autorizado'})
     }
 }
-//Edit putVentas
 export const proveedoresPut =(req, res)=>{
     const dataOrder = req.decode
     if(dataOrder.name === 'Admin' || dataOrder.proveedoresPut === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+//Facturas
+export const editFacturas =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.editFacturas === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+export const putFacturas =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.putFacturas === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+//Categorias
+export const editCategorias =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.editCategorias === 'permitido'){
+        res.json({message:'permitido'})
+    } else {
+        res.json({message:'No autorizado'})
+    }
+}
+export const putCategorias =(req, res)=>{
+    const dataOrder = req.decode
+    if(dataOrder.name === 'Admin' || dataOrder.putCategorias === 'permitido'){
         res.json({message:'permitido'})
     } else {
         res.json({message:'No autorizado'})

@@ -8,10 +8,10 @@ const URI2 ='http://localhost:8000/dashboard/'
 
 export const SearchOrderScreen = () => {
   const {user} = useContext(AuthContext)
-  const token = user.token
+   const token = user.token
   const [productName, setProductName] = useState('')
   const [productFilter, setProductFilter] = useState()
-  const [filter, setFilter] = useState('nombreUser')
+  const [filter, setFilter] = useState('nombre')
   
   const handleChangeName = (e) =>{
     e.preventDefault()
@@ -19,10 +19,15 @@ export const SearchOrderScreen = () => {
   }
   const handleSubmitName = () =>{
     const promesa1 = Promise.resolve( getOrders(filter,productName,token))
-   
-    promesa1.then((value)=>{
-      setProductFilter(value)
-    })
+    if(productName === ''){
+      promesa1.then((value)=>{
+        setProductFilter(value[0])
+      })
+    }else {
+      promesa1.then((value)=>{
+        setProductFilter(value)
+      })   
+    }
     
 
     
@@ -32,7 +37,6 @@ export const SearchOrderScreen = () => {
     getOrders()
   }, [])
 
-//Falta crear el del LOl en el back-end.
   const delProduct = async(id)=>{
     await axios.delete(`${URI2}${id}`,  {
         headers:{"Authorization": `Bearer ${token}` }
@@ -49,22 +53,29 @@ export const SearchOrderScreen = () => {
   }
 
   const handleUp =(filterName, type)=>{
-    const promesa1 = Promise.resolve( getOrders(filter,productName))
+    const promesa1 = Promise.resolve( getOrders(filter,productName, token))
     promesa1.then((value)=>{
-      const order = orderByOrders(value,type, 'top', filterName)
+      if(productName === ''){
+        const order = orderByOrders(value[0],type, 'top', filterName)
       setProductFilter(order)
+      } else {
+        const order = orderByOrders(value,type, 'top', filterName)
+      setProductFilter(order)
+      }
     })
   }
   const handleDown =(filterName, type)=>{
-    const promesa1 = Promise.resolve( getOrders(filter,productName))
+    const promesa1 = Promise.resolve( getOrders(filter,productName, token))
     promesa1.then((value)=>{
-      const order = orderByOrders(value,type, 'down', filterName)
+      if(productName === ''){
+        const order = orderByOrders(value[0],type, 'down', filterName)
       setProductFilter(order)
+      } else {
+        const order = orderByOrders(value,type, 'down', filterName)
+      setProductFilter(order)
+      }
     })
   }
-
-  
-
   return (
     <>
        <h1>Busqueda</h1>
@@ -83,10 +94,9 @@ value={productName}
 onChange={handleChangeName}
 />
 <select  name='filter' onChange={handleOnchangeFilter}>
-  <option value='nombreUser'>Nombre</option>
-  <option value='apellidoUser'>Apellido</option>
-  <option value='nombreProductoShops'>nombreProductoShops</option>
-  <option value='total'>total</option>
+  <option value='nombre'>Nombre</option>
+  <option value='direccion'>Direccion</option>
+  <option value='telefono'>Telefono</option>
 </select>
 <button  onClick={handleSubmitName} className='btn btn-outline-primary mt-1'>Buscar...</button>
 
@@ -103,13 +113,12 @@ onChange={handleChangeName}
     <table className='table text-white '>
     <thead className='table-primary'>
         <tr>
-            <th>Nombre <i onClick={() => handleUp('nombreUser','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('nombreUser','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th>Nombre <i onClick={() => handleUp('nombre','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('nombre','string')} className="fa-solid fa-arrow-down"></i></th>
 
-            <th>Apellido <i onClick={() => handleUp('apellidoUser','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('apellidoUser','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th>Direccion <i onClick={() => handleUp('direccion','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('direccion','string')} className="fa-solid fa-arrow-down"></i></th>
 
-            <th> nombreProductsShops <i onClick={() => handleUp('nombreProductsShops','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('nombreproductsShops','string')} className="fa-solid fa-arrow-down"></i></th>
+            <th> Telefono <i onClick={() => handleUp('telefono','string')} className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('telefono','string')} className="fa-solid fa-arrow-down"></i></th>
 
-            <th>Total<i onClick={() => handleUp('total','number')  } className="fa-solid fa-arrow-up"></i><i onClick={() => handleDown('total','number')  } className="fa-solid fa-arrow-down"></i></th>
             
             <th>Action</th>
 
@@ -120,10 +129,9 @@ onChange={handleChangeName}
           
             productFilter.map((product)=>(
                 <tr key={product.id}> 
-                    <td>{product.nombreUser}</td>
-                    <td>{product.apellidoUser}</td>
-                    <td>{product.nombreProductsShops}</td>
-                    <td>{product.total}</td>
+                    <td>{product.nombre}</td>
+                    <td>{product.direccion}</td>
+                    <td>{product.telefono}</td>
                     <td>
                         <Link to={`/home/edit/${product.id}`} className='btn btn-info'><i className="fa-solid fa-pen-to-square"></i></Link>
                         <button onClick={()=> delProduct(product.id)} className='btn btn-danger'><i className="fa-solid fa-trash"></i></button>
