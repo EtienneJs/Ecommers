@@ -1,7 +1,17 @@
 .container_Dash{
+    width: 100% ; 
     height: 100vh;
 }
 
 Link{
     color: white;
+}
+.containerLine{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dasboard{
+    width: 45%;
 }
